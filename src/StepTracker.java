@@ -8,52 +8,49 @@ public class StepTracker {
             monthToData[i] = new MonthData();
         }
     }
-
-    class MonthData {   //Стата по месяцам
-        int[] steps = new int[30];  //Массив с шагами по дням
-
-        void saveSteps(int day, int step) {     //Сохраняем новое значение шагов за день
-            steps[day] = step;
+        void saveSteps(int month, int day, int step) {     //Сохраняем новое значение шагов за день
+            monthToData[month].steps[day] = step;
         }
 
-        int calcTotalSteps() {      //Считаем общее количество шагов
+        int calcTotalSteps(int month) {      //Считаем общее количество шагов
             int total = 0;
-            for (int step : steps) {
+            for (int step : monthToData[month].steps) {
                 total += step;
             }
             return total;
         }
 
-        void printStatByDays() {    //Печатаем статистику по дням
-            for(int i = 0; i < steps.length; i++) {
-                System.out.print((i + 1) + " день: " + steps[i] + ", ");
+        void printStatByDays(int month) {    //Печатаем статистику по дням
+            for(int i = 0; i < monthToData[month].steps.length; i++) {
+                System.out.print((i + 1) + " день: " + monthToData[month].steps[i] + ", ");
             }
             System.out.println();
         }
 
-        int getMaxSteps() {     //Находим день с максимальным количеством шагов
+        int getMaxSteps(int month) {     //Находим день с максимальным количеством шагов
             int max = 0;
-            for (int step : steps) {
+            for (int step : monthToData[month].steps) {
                 if (max < step) max = step;
             }
             return max;
         }
 
-        String getAverageSteps() {      //Получаем среднее значение за месяц
-            return String.format("%.2f", (calcTotalSteps() / 30.0));
+        String getAverageSteps(int month) {      //Получаем среднее значение за месяц
+            return String.format("%.2f", (calcTotalSteps(month) / 30.0));
         }
 
-        int findBestSer() {     //Находим лучшую серию за месяц
+        int findBestSer(int month) {     //Находим лучшую серию за месяц
             int inRow = 0;
             int bestInRow = 0;
-            for (int step : steps) {
-                if (step >= goalSteps) inRow++;
-                else {
+            for (int step : monthToData[month].steps) {
+                if (step >= goalSteps) {
+                    inRow++;
+                } else {
                     if (bestInRow < inRow) bestInRow = inRow;
                     inRow = 0;
                 }
             }
+            if (bestInRow < inRow) bestInRow = inRow;
             return bestInRow;
         }
-    }
 }

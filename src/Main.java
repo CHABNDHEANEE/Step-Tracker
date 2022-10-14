@@ -13,7 +13,7 @@ public class Main {
                 int month = inputMonth(scanner);
                 int day = inputDay(scanner);
                 int steps = inputSteps(scanner);
-                stepTracker.monthToData[month].saveSteps(day, steps);
+                stepTracker.saveSteps(month, day, steps);
                 System.out.println("Шаги сохранены!");
             }
             else if (commandId == 2) {      //Печатает стату за месяц
@@ -46,8 +46,8 @@ public class Main {
     }
 
     public static int inputDay(Scanner scanner) {       //Запрашиваем и получаем от юзерра день
-        System.out.println("Введите день, начиная с 0: ");
-        return scanner.nextInt();
+        System.out.println("Введите день: ");
+        return scanner.nextInt() - 1;
     }
 
     public static int inputSteps(Scanner scanner) {     //Запрашиваем и получаем от юзера кол-во шагов
@@ -62,12 +62,12 @@ public class Main {
 
     public static void printStat(int month, StepTracker stepTracker, Converter converter) {     //Печаем стату за месяц, введенный юзерром
         System.out.println("Количество пройденных шагов по дням: ");
-        stepTracker.monthToData[month].printStatByDays();
-        System.out.println("Общее количество шагов за месяц: " + stepTracker.monthToData[month].calcTotalSteps());
-        System.out.println("Макисмальное количество шагов: " + stepTracker.monthToData[month].getMaxSteps());
-        System.out.println("Среднее количество шагов за месяц: " + stepTracker.monthToData[month].getAverageSteps());
-        System.out.println("Пройденная дистанция: " + converter.getDistance(stepTracker.monthToData[month].calcTotalSteps()));
-        System.out.println("Количество сожжённых килокалорий: " + converter.getCalories(stepTracker.monthToData[month].calcTotalSteps()));
-        System.out.println("Лучшая серия: " + stepTracker.monthToData[month].findBestSer());
+        stepTracker.printStatByDays(month);
+        System.out.println("Общее количество шагов за месяц: " + stepTracker.calcTotalSteps(month));
+        System.out.println("Макисмальное количество шагов: " + stepTracker.getMaxSteps(month));
+        System.out.println("Среднее количество шагов за месяц: " + stepTracker.getAverageSteps(month));
+        System.out.println("Пройденная дистанция: " + converter.getDistance(stepTracker.calcTotalSteps(month)));
+        System.out.println("Количество сожжённых килокалорий: " + converter.getCalories(stepTracker.calcTotalSteps(month)));
+        System.out.println("Лучшая серия: " + stepTracker.findBestSer(month));
     }
 }
