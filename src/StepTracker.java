@@ -47,7 +47,7 @@ public class StepTracker {
             int inRow = 0;
             int bestInRow = 0;
             for (int step : steps) {
-                if (step > goalSteps) inRow++;
+                if (step >= goalSteps) inRow++;
                 else {
                     if (bestInRow < inRow) bestInRow = inRow;
                     inRow = 0;
