@@ -50,9 +50,9 @@ public class Main {
         int day = scanner.nextInt();
         if (day <= 0 || day > 30) {     //Проверяем корректность ввода
             System.out.println("Введен некорректный день! Попробуйте еще раз.");
-            inputDay(scanner);
+            return inputDay(scanner);
         }
-        return day;
+        return day - 1;
     }
 
     public static int inputSteps(Scanner scanner) {     //Запрашиваем и получаем от юзера кол-во шагов
@@ -60,7 +60,7 @@ public class Main {
         int steps = scanner.nextInt();
         if (steps < 0) {        //Проверяем корректность ввода
             System.out.println("Введено некорректное количество шагов. Попробуйте еще раз.");
-            inputSteps(scanner);
+            return inputSteps(scanner);
         }
         return steps;
     }
